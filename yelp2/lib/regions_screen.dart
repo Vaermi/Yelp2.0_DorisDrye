@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yelp2/providers/city_provider.dart';
 import 'package:yelp2/regions_card.dart';
 
 class RegionsScreen extends StatefulWidget {
@@ -9,7 +10,14 @@ class RegionsScreen extends StatefulWidget {
 }
 
 class _RegionsScreenState extends State<RegionsScreen> {
-  final List<String> cities = [];
+  List<String> cities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    CityProvider().load().then((value) => setState(() => cities = value));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,5 +38,10 @@ class _RegionsScreenState extends State<RegionsScreen> {
     );
   }
 
-  void _addRegion() {}
+  void _addRegion() async {
+    await Navigator.pushNamed(context, '/add_region');
+    setState(() {
+      cities = CityProvider().get();
+    });
+  }
 }

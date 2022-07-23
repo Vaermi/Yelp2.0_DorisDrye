@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yelp2/add_region_screen.dart';
+import 'package:yelp2/fade_route.dart';
 import 'package:yelp2/regions_screen.dart';
 
 void main() {
@@ -15,6 +17,17 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
+        initialRoute: '/home',
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
+            case '/home':
+              return FadeRoute(const RegionsScreen());
+            case '/add_region':
+              return FadeRoute(AddRegionScreen());
+            default:
+              return FadeRoute(const RegionsScreen());
+          }
+        },
         darkTheme: ThemeData(
           primaryColor: Colors.green,
         ),
