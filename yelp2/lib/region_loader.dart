@@ -6,6 +6,12 @@ abstract class RegionLoader {
   void save(List<String> data);
 }
 
+abstract class RestaurantLoader {
+  Future<List<String>?> load();
+
+  void save(List<String> data);
+}
+
 class DummyRegionLoader implements RegionLoader {
   @override
   Future<List<String>?> load() {
@@ -29,5 +35,31 @@ class StorageRegionLoader implements RegionLoader {
   Future<void> save(List<String> data) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setStringList(REGIONS_KEY, data);
+  }
+}
+
+class DummyRestaurantLoader implements RestaurantLoader {
+  @override
+  Future<List<String>?> load() {
+    return Future.value(['Pizzahut', 'Amore Mio', 'Mexicano']);
+  }
+
+  @override
+  void save(List<String> data) {}
+}
+
+class StorageRestaurantLoader implements RestaurantLoader {
+  // ignore: constant_identifier_names
+  static const RESTAURANTS_KEY = 'RESTAURANTS';
+  @override
+  Future<List<String>?> load() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(RESTAURANTS_KEY);
+  }
+
+  @override
+  Future<void> save(List<String> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(RESTAURANTS_KEY, data);
   }
 }
