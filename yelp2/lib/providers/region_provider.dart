@@ -1,7 +1,7 @@
 import 'package:yelp2/region_loader.dart';
 
 class RegionProvider {
-  final RegionLoader loader = StorageRegionLoader();
+  final RegionLoader loader = DummyRegionLoader();
   List<String> _regions = [];
 
   // private static CityProvider instance;

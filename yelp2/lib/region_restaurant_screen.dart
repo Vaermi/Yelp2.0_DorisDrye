@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:yelp2/add_restaurant_screen.dart';
 import 'package:yelp2/providers/restaurant_provider.dart';
+import 'package:yelp2/restaurant.dart';
 import 'package:yelp2/restaurant_card.dart';
+import 'package:yelp2/screen.dart';
 
-class RegionRestaurantScreen extends StatefulWidget {
-  const RegionRestaurantScreen({Key? key}) : super(key: key);
+class RegionRestaurantsScreenArgs {
+  final String region;
 
-  @override
-  State<RegionRestaurantScreen> createState() => _RegionRestaurantScreen();
+  const RegionRestaurantsScreenArgs({required this.region});
 }
 
-class _RegionRestaurantScreen extends State<RegionRestaurantScreen> {
-  List<String> restaurants = [];
+class RegionRestaurantsScreen extends StatefulWidget {
+  final RegionRestaurantsScreenArgs args;
+  const RegionRestaurantsScreen(this.args, {Key? key}) : super(key: key);
+
+  @override
+  State<RegionRestaurantsScreen> createState() =>
+      _RegionRestaurantsScreenState();
+}
+
+class _RegionRestaurantsScreenState extends State<RegionRestaurantsScreen> {
+  List<Restaurant> restaurants = [];
 
   @override
   void initState() {
@@ -22,28 +33,26 @@ class _RegionRestaurantScreen extends State<RegionRestaurantScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Yelp 2.0'),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: IconButton(
-        icon: const Icon(Icons.add_outlined),
-        onPressed: _addRegion,
-      ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: restaurants.map((String c) => RestaurantCard(c)).toList(),
-        ),
+    return Screen(
+      onFabPressed: _addRestaurant,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(widget.args.region),
+          Column(
+            children:
+                restaurants.map((Restaurant r) => RestaurantCard(r)).toList(),
+          )
+        ],
       ),
     );
   }
 
-  void _addRegion() async {
-    await Navigator.pushNamed(context, '/add_restaurant');
-    setState(() {
-      restaurants = RestaurantProvider().get();
-    });
+  void _addRestaurant() async {
+    await Navigator.pushNamed(context, '/add_restaurant',
+        arguments: AddRestaurantScreenArgs(widget.args.region));
+    // setState(() {
+    //   regions = RegionProvider().get();
+    // });
   }
 }

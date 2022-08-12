@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yelp2/providers/region_provider.dart';
 import 'package:yelp2/regions_card.dart';
+import 'package:yelp2/screen.dart';
 
 class RegionsScreen extends StatefulWidget {
   const RegionsScreen({Key? key}) : super(key: key);
@@ -20,20 +21,11 @@ class _RegionsScreenState extends State<RegionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Yelp 2.0'),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: IconButton(
-        icon: const Icon(Icons.add_outlined),
-        onPressed: _addRegion,
-      ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: cities.map((String c) => RegionsCard(c)).toList(),
-        ),
+    return Screen(
+      onFabPressed: _addRegion,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: cities.map((String c) => RegionsCard(c)).toList(),
       ),
     );
   }
