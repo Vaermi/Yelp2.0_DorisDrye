@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class InputField extends StatelessWidget {
   final String label;
@@ -20,7 +17,7 @@ class InputField extends StatelessWidget {
         TextField(
           controller: controller,
           maxLines: 1,
-          decoration: InputDecoration(hintText: 'hintText'),
+          decoration: const InputDecoration(hintText: 'hintText'),
         ),
       ],
     );

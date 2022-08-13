@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yelp2/providers/region_provider.dart';
+import 'package:yelp2/region.dart';
 import 'package:yelp2/regions_card.dart';
 import 'package:yelp2/screen.dart';
 
@@ -11,7 +12,7 @@ class RegionsScreen extends StatefulWidget {
 }
 
 class _RegionsScreenState extends State<RegionsScreen> {
-  List<String> cities = [];
+  List<Region> cities = [];
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _RegionsScreenState extends State<RegionsScreen> {
       onFabPressed: _addRegion,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: cities.map((String c) => RegionsCard(c)).toList(),
+        children: cities.map((Region c) => RegionsCard(c)).toList(),
       ),
     );
   }

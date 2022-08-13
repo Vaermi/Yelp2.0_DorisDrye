@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:yelp2/add_restaurant_screen.dart';
 import 'package:yelp2/providers/restaurant_provider.dart';
+import 'package:yelp2/region.dart';
 import 'package:yelp2/restaurant.dart';
 import 'package:yelp2/restaurant_card.dart';
 import 'package:yelp2/screen.dart';
 
 class RegionRestaurantsScreenArgs {
-  final String region;
+  final Region region;
 
   const RegionRestaurantsScreenArgs({required this.region});
 }
@@ -27,7 +28,7 @@ class _RegionRestaurantsScreenState extends State<RegionRestaurantsScreen> {
   void initState() {
     super.initState();
     RestaurantProvider()
-        .load()
+        .load(widget.args.region.id)
         .then((value) => setState(() => restaurants = value));
   }
 
@@ -38,7 +39,7 @@ class _RegionRestaurantsScreenState extends State<RegionRestaurantsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(widget.args.region),
+          Text(widget.args.region.name),
           Column(
             children:
                 restaurants.map((Restaurant r) => RestaurantCard(r)).toList(),
@@ -50,7 +51,7 @@ class _RegionRestaurantsScreenState extends State<RegionRestaurantsScreen> {
 
   void _addRestaurant() async {
     await Navigator.pushNamed(context, '/add_restaurant',
-        arguments: AddRestaurantScreenArgs(widget.args.region));
+        arguments: AddRestaurantScreenArgs(widget.args.region.id));
     // setState(() {
     //   regions = RegionProvider().get();
     // });

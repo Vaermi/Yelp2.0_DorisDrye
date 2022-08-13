@@ -2,7 +2,7 @@ import 'package:yelp2/restaurant.dart';
 import 'package:yelp2/restaurant_loader.dart';
 
 class RestaurantProvider {
-  final RestaurantLoader loader = DummyRestaurantLoader();
+  final RestaurantLoader loader = DatabaseRestaurantLoader();
   List<Restaurant> _restaurants = [];
 
   static final RestaurantProvider _instance = RestaurantProvider._internal();
@@ -22,8 +22,8 @@ class RestaurantProvider {
     return _restaurants;
   }
 
-  Future<List<Restaurant>> load() async {
-    _restaurants = (await loader.load()) ?? [];
+  Future<List<Restaurant>> load(String regionId) async {
+    _restaurants = (await loader.load(regionId)) ?? [];
     return get();
   }
 }

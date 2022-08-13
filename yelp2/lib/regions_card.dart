@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:yelp2/own_card.dart';
+import 'package:yelp2/region.dart';
 import 'package:yelp2/region_restaurant_screen.dart';
 
 class RegionsCard extends StatelessWidget {
-  final String region;
+  final Region region;
   // RegionsCard(String city) {
   //   this.city = city;
   // }
@@ -12,7 +13,7 @@ class RegionsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OwnCard(
-      child: Center(child: Text(region)),
+      child: Center(child: Text(region.name)),
       onTap: () => Navigator.pushNamed(context, '/region_restaurants',
           arguments: RegionRestaurantsScreenArgs(region: region)),
     );

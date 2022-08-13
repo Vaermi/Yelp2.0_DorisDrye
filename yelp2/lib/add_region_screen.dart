@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:yelp2/providers/region_provider.dart';
 
 class AddRegionScreen extends StatelessWidget {
@@ -14,12 +12,12 @@ class AddRegionScreen extends StatelessWidget {
         TextField(
           controller: cityController,
           maxLines: 1,
-          decoration: InputDecoration(hintText: 'Cityname'),
+          decoration: const InputDecoration(hintText: 'Cityname'),
         ),
         InkWell(
           onTap: () {
-            final input = cityController.value.text;
-            RegionProvider().add(input);
+            // final input = cityController.value.text;
+            // RegionProvider().add(input);
             Navigator.pop(context);
           },
           child: Container(

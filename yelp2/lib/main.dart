@@ -4,8 +4,14 @@ import 'package:yelp2/add_restaurant_screen.dart';
 import 'package:yelp2/fade_route.dart';
 import 'package:yelp2/region_restaurant_screen.dart';
 import 'package:yelp2/regions_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
